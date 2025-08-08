@@ -200,7 +200,8 @@ class AnalogRecorder:
 
     def _normalize_ring_buffer(self, buffer: ctypes.Array, index: int):
         array = np.array(buffer)
-        if index + self._total_samples <= len(array):
-            return array[index:self._total_samples]
+        total_samples = min(self._total_samples, len(array))
+        if index >= total_samples:
+            return array[index-total_samples:index]
         else:
-            np.concatenate([array[index:], array[:index+self._total_samples-len(array)]])
+            np.concatenate([array[index-total_samples:], array[:index]])
