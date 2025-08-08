@@ -204,4 +204,4 @@ class AnalogRecorder:
         if index >= total_samples:
             return array[index-total_samples:index]
         else:
-            np.concatenate([array[index-total_samples:], array[:index]])
+            return np.concatenate([array[index-total_samples:], array[:index]])
